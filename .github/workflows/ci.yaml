@@ -18,6 +18,7 @@ jobs:
       contents: read
       issues: write
       pull-requests: write
+      packages: read
 
     steps:
       - name: Checkout repository
@@ -42,11 +43,11 @@ jobs:
         if: always()
         run: npm audit --audit-level=high || true
 
-      # For `npm run lint` make sure ESLint is present as dev dependency in package.json (Comes by default for NextJS)
-      # For `npm run lint` make sure .eslintrc.json file is present along with required configuration in it (Comes by default for NextJS)
-      # For `npm run lint` make sure script to run lint is already added in package.json (Comes by default for NextJS)
+        # ESLint did not work, hence using super linter
       - name: Check linting
-        run: npm run lint
+        uses: super-linter/super-linter@v8.6.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   # unit-test:
