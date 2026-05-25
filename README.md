@@ -1,4 +1,4 @@
-This project is forked from [JavaScript-Mastery-Pro/figma-ts](https://github.com/JavaScript-Mastery-Pro/figma-ts), to containerize the application, implement CI/CD pipeline for automatic testing, and building, and finally deploying the app onto Kubernetes cluster 👍<br>
+This project is forked from [JavaScript-Mastery-Pro/figma-ts](https://github.com/JavaScript-Mastery-Pro/figma-ts), to containerize the application, implement CI/CD pipeline for continuous and automatic security scanning, testing, and building, and finally deploying the app onto Kubernetes cluster 👍<br>
 
 <div align="center">
   <br />
