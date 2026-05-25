@@ -11,15 +11,14 @@
 This project is forked from [JavaScript-Mastery-Pro/figma-ts](https://github.com/JavaScript-Mastery-Pro/figma-ts), to containerize the application, implement CI/CD pipeline for automatic testing, and building, and finally deploying the app onto Kubernetes cluster 👍<br>
 
 ### Learnings from Dockerizing this nextjs-based application
-1. [I learnt how to dockerize an optimized NextJS app with additional configuration (without configuration, we get larger size docker image even with multi-stage build process.](#learning-1)
+1. [I learnt how to create an optimized NextJS app with additional configuration (without configuration, we get larger size docker image even with multi-stage build process.)](#learning-1)
 2. [I learnt how to add env var at build time, as required for this application.](#learning-2)
 
 
 
 
 <a name="learning-1">Default un-optimized behaviour of NextJS app</a> => <br>
-Unlike Vite, NextJS on `npm run build` does not generate static HTML, CSS, JS files to serve directly, rather the build created in `.next` directory depends on package.json and node modules to serve the app => Even if Dockerfile is layered with minimal base image, node modules would still add significant weight to the docker image.<br>
-Reducing docker image by x%<br>
+Unlike Vite, NextJS on `npm run build` does not generate static HTML, CSS, JS files to serve directly, rather the build created in `.next` directory depends on package.json and node modules to serve the app => Even if Dockerfile is layered with minimal base image, node modules would still add significant weight to the docker image.Reducing docker image by x%<br>
 <a name="learning-2">Passing env at build time</a> => <br>
     
 
