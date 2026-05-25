@@ -11,7 +11,8 @@ This project is forked from [JavaScript-Mastery-Pro/figma-ts](https://github.com
 # <a name="">Devopsifying the project</a>
 
 ### 🐳 Learnings from Dockerizing this nextjs-based application
-1. [I learnt how to create an optimized NextJS app with additional configuration (without configuration, we get larger size docker image even with multi-stage build process.)](#learning-1)
+1. [I learnt how to create an optimized NextJS app with additional configuration](#learning-1)<br>
+   **NOTE** -> Without configuration, even with multi-stage build process, we get siginificant large sized docker image in case of NextJS apps.
 2. [I learnt how to add env var at build time, as required for this application.](#learning-2)
 
 
