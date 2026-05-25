@@ -16,17 +16,12 @@ This project is forked from [JavaScript-Mastery-Pro/figma-ts](https://github.com
 
    *Problem* -> Unlike Vite, NextJS is not a bundler and it requires nodejs runtime to serve pages. Hence even though we create a build (`.next`) we still require package.json and node_modules to serve the application pages => Even if Dockerfile is layered with minimal base image and implements multi-stage build process, because of node modules copied to final stage a significant weight is added to the docker image.<br>
 
-   *Solution* -> As per [NextJS documentation](https://nextjs.org/docs/pages/api-reference/config/next-config-js/output) we can configure a `standalone` folder within the build that would copy only the necessary files required for production as well as copy necessary files from node modules, thereby not necessitate to copy entire node modules onto the final docker image. Hence, reducing image size drastically.
+   *<a name="learning-1">Solution</a>* -> As per [NextJS documentation](https://nextjs.org/docs/pages/api-reference/config/next-config-js/output) we can configure a `standalone` folder within the build that would copy only the necessary files required for production as well as copy necessary files from node modules, thereby not necessitate to copy entire node modules onto the final docker image. Hence, reducing image size drastically.
     <img src="https://github.com/harshitrajsinha/figma-clone-devops/blob/178dbf50a4c587bdcf4d6321b5c107532da15ffd/public/nextjs-image.png" alt="Docker images diff">
     
-3. [I learnt how to add env var at build time, as required for this application.](#learning-2)
-
-
-
-
-<a name="learning-1">Default un-optimized behaviour of NextJS app</a> => <br>
-Unlike Vite, NextJS on `npm run build` does not generate static HTML, CSS, JS files to serve directly, rather the build created in `.next` directory depends on package.json and node modules to serve the app => Even if Dockerfile is layered with minimal base image, node modules would still add significant weight to the docker image.Reducing docker image by x%<br>
-<a name="learning-2">Passing env at build time</a> => <br>
+2. [I learnt how to add env var at build time](#learning-2)<br>
+<a name="learning-2"></a>We typically pass environment variables during runtime through docker run command, but this application reads the env value at build time, which required to modify the dockerfile along with docker build command to inject the env var<br>
+    <code>docker build --build-arg key=value ...</code>
     
 
 ## 📋 <a name="table">Table of Contents</a>
