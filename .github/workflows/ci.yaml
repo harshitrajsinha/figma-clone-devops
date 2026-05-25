@@ -1,0 +1,58 @@
+name: CI pipeline to automate docker image release
+
+on:
+  push:
+    branches:
+      - dev
+    paths-ignore:
+      - '**/*.md'
+      - '.vscode/**'
+      - 'k8s/**'
+
+jobs:
+
+  security-scan:
+    runs-on: ubuntu
+
+    permissions:
+      contents: read
+      issues: write
+      # pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup node v24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      
+      - name: Check secret leaks in the repository
+        uses: gitleaks/gitleaks-action@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check vulnerability
+        uses: oke-py/npm-audit-action@v4
+        with:
+          audit_level: moderate
+          # No need to create secret. It is a special built-in secret that GitHub injects into every repository automatically. It's just always there. But we need to set permission in the job as to what can be accessed via the secret by the step
+          github_token: ${{ secrets.GITHUB_TOKEN }} 
+          issue_labels: vulnerability,test
+
+      # For `npm run lint` make sure ESLint is present as dev dependency in package.json (Comes by default for NextJS)
+      # For `npm run lint` make sure .eslintrc.json file is present along with required configuration in it (Comes by default for NextJS)
+      # For `npm run lint` make sure script to run lint is already added in package.json (Comes by default for NextJS)
+      - name: Check linting
+        run: npm run lint
+
+
+  # unit-test:
+
+  # image-build:
+  
+
+  # release:
