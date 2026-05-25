@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # this is added to fix super-linter linting error of "GITHUB_BEFORE_SHA"
       
       - name: Setup node v24
         uses: actions/setup-node@v6
@@ -43,7 +45,7 @@ jobs:
         if: always()
         run: npm audit --audit-level=high || true # 'true' if no vulnerability is found
 
-        # ESLint did not work, hence using super linter
+        # ESLint did not work, hence using super linter. This linter is slow as it pulls image from gcr. But couldn't find any better alternatives yet.
       - name: Check linting
         uses: super-linter/super-linter@v8.6.0
         env:
