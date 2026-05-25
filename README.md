@@ -12,8 +12,13 @@ This project is forked from [JavaScript-Mastery-Pro/figma-ts](https://github.com
 
 ### 🐳 Learnings from Dockerizing this nextjs-based application
 1. [I learnt how to create an optimized NextJS app with additional configuration](#learning-1)<br>
-   **NOTE** -> Without configuration, even with multi-stage build process, we get siginificant large sized docker image in case of NextJS apps.
-2. [I learnt how to add env var at build time, as required for this application.](#learning-2)
+   **NOTE** -> Without configuration, even with multi-stage build process, we get siginificant large sized docker image in case of NextJS apps.<br>
+
+   *Problem* -> Unlike Vite, NextJS is not a bundler and it requires nodejs runtime to serve pages. Hence even though we create a build (`.next`) we still require package.json and node_modules to serve the application pages => Even if Dockerfile is layered with minimal base image and implements multi-stage build process, because of node modules copied to final stage a significant weight is added to the docker image.<br>
+
+   *Solution* -> As per [NextJS documentation](https://nextjs.org/docs/pages/api-reference/config/next-config-js/output) we can configure a `standalone` folder within the build that would copy only the necessary files required for production as well as copy necessary files from node modules, thereby not necessitate to copy entire node modules onto the final docker image. Hence, reducing image size drastically.
+    
+3. [I learnt how to add env var at build time, as required for this application.](#learning-2)
 
 
 
