@@ -22,6 +22,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   output: 'standalone',
+  turbopack: {}
 };
 
 export default nextConfig;
