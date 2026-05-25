@@ -1,3 +1,5 @@
+This project is forked from [JavaScript-Mastery-Pro/figma-ts](https://github.com/JavaScript-Mastery-Pro/figma-ts), to containerize the application, implement CI/CD pipeline for automatic testing, and building, and finally deploying the app onto Kubernetes cluster 👍<br>
+
 <div align="center">
   <br />
     <a href="https://youtu.be/IxqC6I0U64s" target="_blank">
@@ -7,8 +9,6 @@
 </div>
 
 # <a name="">Devopsifying the project</a>
-
-This project is forked from [JavaScript-Mastery-Pro/figma-ts](https://github.com/JavaScript-Mastery-Pro/figma-ts), to containerize the application, implement CI/CD pipeline for automatic testing, and building, and finally deploying the app onto Kubernetes cluster 👍<br>
 
 ### Learnings from Dockerizing this nextjs-based application
 1. [I learnt how to create an optimized NextJS app with additional configuration (without configuration, we get larger size docker image even with multi-stage build process.)](#learning-1)
