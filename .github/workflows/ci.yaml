@@ -41,13 +41,14 @@ jobs:
 
       - name: Display audit report
         if: always()
-        run: npm audit --audit-level=high || true
+        run: npm audit --audit-level=high || true # 'true' if no vulnerability is found
 
         # ESLint did not work, hence using super linter
       - name: Check linting
         uses: super-linter/super-linter@v8.6.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: dev
 
 
   # unit-test:
