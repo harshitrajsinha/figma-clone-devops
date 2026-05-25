@@ -43,18 +43,9 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }} 
           issue_labels: vulnerability,test
           create_issues: false
-          json_flag: true           
-
-      - name: Save audit report
+      - name: Print audit report
         if: always()
-        run: echo '${{ steps.audit.outputs.npm_audit }}' > audit-report.json
-
-      - name: Upload audit report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: npm-audit-report
-          path: audit-report.json
+        run: echo "${{ steps.audit.outputs.npm_audit }}"
 
       # For `npm run lint` make sure ESLint is present as dev dependency in package.json (Comes by default for NextJS)
       # For `npm run lint` make sure .eslintrc.json file is present along with required configuration in it (Comes by default for NextJS)
