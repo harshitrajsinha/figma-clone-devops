@@ -75,8 +75,8 @@ jobs:
 
   # unit-test:
 
-  image-build:
-    needs: [security-scan] # If this job requires all above security scans to pass, better to put them in one job. If any could be avoided (like linting in this case, then put it in a separate job)
+  image-build-and-release:
+    needs: [security-scan]
     runs-on: ubuntu-latest
 
     env:
@@ -107,6 +107,8 @@ jobs:
           tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} # with block does not expand shell variable => requires env
           load: true
           push: false
+          cache-from: type=gha         # Use previously saved GitHub Actions cache when building this image.
+          cache-to: type=gha,mode=max  # Save as many build layers as possible back to GitHub Actions cache.
       
       - name: Analyze for critical and high CVEs
         uses: docker/scout-action@v1
@@ -125,6 +127,7 @@ jobs:
         with:
           name: docker-scout-report
           path: sarif.output.json
-  
-
-  # release:
+      
+      - name: Push image
+        run: |
+          docker push $IMAGE_NAME:$IMAGE_TAG
