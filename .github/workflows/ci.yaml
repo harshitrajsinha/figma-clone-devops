@@ -42,6 +42,10 @@ jobs:
           # No need to create secret. It is a special built-in secret that GitHub injects into every repository automatically. It's just always there. But we need to set permission in the job as to what can be accessed via the secret by the step
           github_token: ${{ secrets.GITHUB_TOKEN }} 
           issue_labels: vulnerability,test
+          create_issues: false
+      - name: Print audit report
+        if: always()
+        run: echo "${{ steps.audit.outputs.npm_audit }}"
 
       # For `npm run lint` make sure ESLint is present as dev dependency in package.json (Comes by default for NextJS)
       # For `npm run lint` make sure .eslintrc.json file is present along with required configuration in it (Comes by default for NextJS)
